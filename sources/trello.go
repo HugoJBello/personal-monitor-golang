@@ -44,17 +44,31 @@ func (trello *TrelloSource) Display(trelloResult *models.TrelloResult) (rr error
 	utils.ClearConsole()
 	data := []table.Row{}
 	for _, card := range trelloResult.Cards {
-		item := table.Row{card.Name, card.DateLastActivity.Format("2006-01-02 15:04:05")}
+		name := card.Name
+		date := card.DateLastActivity.Format("2006-01-02 15:04:05")
+		labels := getLabels(card)
+		item := table.Row{name, date, labels}
 		data = append(data, item)
 	}
 	t := table.NewWriter()
 	t.SetStyle(table.StyleColoredDark)
 	t.SetOutputMirror(os.Stdout)
-	t.AppendHeader(table.Row{"Name", "Date"})
+	t.AppendHeader(table.Row{"Name", "Date", "Labels"})
 	t.AppendRows(data)
 	t.AppendSeparator()
 	t.Render()
 
 
 	return nil
+}
+
+func getLabels(card models.Card) string {
+	labels := ""
+	if card.Labels == nil || len(card.Labels) == 0 {
+		return labels
+	}
+	for _, label := range card.Labels {
+		labels = labels + label.Name + " "
+	}
+	return labels
 }
