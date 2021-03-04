@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/HugoJBello/personal-monitor-golang/models"
 	"github.com/HugoJBello/personal-monitor-golang/utils"
-	"github.com/olekukonko/tablewriter"
+	"github.com/jedib0t/go-pretty/v6/table"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -42,19 +42,19 @@ func (trello *TrelloSource) Extract() (trelloResult *models.TrelloResult, err er
 
 func (trello *TrelloSource) Display(trelloResult *models.TrelloResult) (rr error) {
 	utils.ClearConsole()
-	data := [][]string{}
+	data := []table.Row{}
 	for _, card := range trelloResult.Cards {
-		item := []string{card.Name, card.DateLastActivity.Format("2006-01-02 15:04:05")}
+		item := table.Row{card.Name, card.DateLastActivity.Format("2006-01-02 15:04:05")}
 		data = append(data, item)
 	}
+	t := table.NewWriter()
+	t.SetStyle(table.StyleColoredDark)
+	t.SetOutputMirror(os.Stdout)
+	t.AppendHeader(table.Row{"Name", "Date"})
+	t.AppendRows(data)
+	t.AppendSeparator()
+	t.Render()
 
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Name", "Date"})
-
-	for _, v := range data {
-		table.Append(v)
-	}
-	table.Render()
 
 	return nil
 }
