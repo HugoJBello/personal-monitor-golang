@@ -2,11 +2,12 @@ package sources
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/HugoJBello/personal-monitor-golang/models"
 	"github.com/HugoJBello/personal-monitor-golang/utils"
+	"github.com/olekukonko/tablewriter"
 	"io/ioutil"
 	"net/http"
+	"os"
 )
 
 type TrelloSource struct {
@@ -41,8 +42,19 @@ func (trello *TrelloSource) Extract() (trelloResult *models.TrelloResult, err er
 
 func (trello *TrelloSource) Display(trelloResult *models.TrelloResult) (rr error) {
 	utils.ClearConsole()
+	data := [][]string{}
 	for _, card := range trelloResult.Cards {
-		fmt.Println("* " + card.Name + " ---" + card.DateLastActivity.Format("2006-01-02 15:04:05"))
+		item := []string{card.Name, card.DateLastActivity.Format("2006-01-02 15:04:05")}
+		data = append(data, item)
 	}
+
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{"Name", "Date"})
+
+	for _, v := range data {
+		table.Append(v)
+	}
+	table.Render()
+
 	return nil
 }
