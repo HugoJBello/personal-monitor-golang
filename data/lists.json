@@ -1,0 +1,47 @@
+[
+  {
+    "id": "600329f846e8bc5dccb8d303",
+    "name": "One day",
+    "closed": false,
+    "pos": 12288,
+    "softLimit": null,
+    "idBoard": "5e2b71980896f501c919ab2e",
+    "subscribed": false
+  },
+  {
+    "id": "5e2b71a6d3384a4987fb5375",
+    "name": "Ready",
+    "closed": false,
+    "pos": 24576,
+    "softLimit": null,
+    "idBoard": "5e2b71980896f501c919ab2e",
+    "subscribed": false
+  },
+  {
+    "id": "5e2b71b58f5f7e013ad11030",
+    "name": "Doing",
+    "closed": false,
+    "pos": 32768,
+    "softLimit": null,
+    "idBoard": "5e2b71980896f501c919ab2e",
+    "subscribed": false
+  },
+  {
+    "id": "5e2b71b5c83df87798f96d29",
+    "name": "Done",
+    "closed": false,
+    "pos": 36864,
+    "softLimit": null,
+    "idBoard": "5e2b71980896f501c919ab2e",
+    "subscribed": false
+  },
+  {
+    "id": "5ed421db7435c10d60932ce0",
+    "name": "Blocked",
+    "closed": false,
+    "pos": 40960,
+    "softLimit": null,
+    "idBoard": "5e2b71980896f501c919ab2e",
+    "subscribed": false
+  }
+]
